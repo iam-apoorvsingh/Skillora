@@ -1,0 +1,304 @@
+/*
+ * styles/pages/leaderboard.css — Leaderboard & Hall of Fame Styles
+ * ──────────────────────────────────────────────────────────────────
+ * LAYOUT: Leaderboard Table uses CSS Grid (not <table>)
+ *   WHY CSS Grid for a table-like layout?
+ *   HTML <table> is semantically correct for tabular data, but notoriously
+ *   hard to style responsively. A CSS Grid "table" makes each row a grid
+ *   container with the same column template — it LOOKS like a table and
+ *   IS semantically a list, but collapses gracefully on mobile.
+ *
+ * PODIUM TOP-3 EFFECT:
+ *   The top 3 cards are visually highlighted using :nth-child() selectors.
+ *   nth-child(1) = gold, nth-child(2) = silver, nth-child(3) = bronze.
+ *   This is a pure-CSS selector with no class manipulation needed.
+ */
+
+/* ── Page Header ──────────────────────────────────────────────────────────── */
+.leaderboard-page {
+  animation: fadeInUp 0.5s ease;
+}
+.leaderboard-header {
+  display:       flex;
+  align-items:   center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+  flex-wrap:     wrap;
+  gap:           var(--space-4);
+}
+.leaderboard-filters {
+  display:   flex;
+  gap:       var(--space-3);
+  flex-wrap: wrap;
+}
+.leaderboard-filters select {
+  min-width: 140px;
+}
+
+/* ── Top 3 Podium ─────────────────────────────────────────────────────────── */
+.podium {
+  display:       grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:           var(--space-4);
+  margin-bottom: var(--space-8);
+}
+.podium-card {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  padding:        var(--space-6);
+  text-align:     center;
+  gap:            var(--space-3);
+  position:       relative;
+}
+/* Gold (1st place) */
+.podium-card:nth-child(1) {
+  border-color:  rgba(245,158,11,0.5);
+  box-shadow:    0 0 30px rgba(245,158,11,0.2);
+  order:         2; /* Centre card visually */
+}
+/* Silver (2nd place) */
+.podium-card:nth-child(2) {
+  border-color:  rgba(156,163,175,0.4);
+  order:         1;
+  transform:     translateY(16px);
+}
+/* Bronze (3rd place) */
+.podium-card:nth-child(3) {
+  border-color:  rgba(180,83,9,0.4);
+  order:         3;
+  transform:     translateY(16px);
+}
+
+.podium-rank {
+  font-family: var(--font-display);
+  font-size:   var(--text-3xl);
+  font-weight: var(--weight-black);
+  line-height: 1;
+}
+.podium-card:nth-child(1) .podium-rank { color: #f59e0b; }
+.podium-card:nth-child(2) .podium-rank { color: #9ca3af; }
+.podium-card:nth-child(3) .podium-rank { color: #b45309; }
+
+.podium-avatar {
+  width:         80px;
+  height:        80px;
+  border-radius: var(--radius-full);
+  border:        3px solid;
+  background:    linear-gradient(135deg, var(--color-primary-700), var(--color-secondary-500));
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  font-family:   var(--font-display);
+  font-size:     var(--text-2xl);
+  font-weight:   var(--weight-black);
+  color:         white;
+}
+.podium-card:nth-child(1) .podium-avatar { border-color: #f59e0b; box-shadow: 0 0 20px rgba(245,158,11,0.3); }
+.podium-card:nth-child(2) .podium-avatar { border-color: #9ca3af; }
+.podium-card:nth-child(3) .podium-avatar { border-color: #b45309; }
+
+.podium-name  { font-weight: var(--weight-bold); font-size: var(--text-base); }
+.podium-score { font-size: var(--text-sm); color: var(--color-text-secondary); }
+.podium-badge {
+  font-size:     var(--text-xs);
+  font-weight:   var(--weight-bold);
+  padding:       var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  /* Badge tier gradient */
+}
+
+/* ── Tier Badge Gradients ─────────────────────────────────────────────────── */
+.tier-badge {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--space-1);
+  padding:       var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  font-size:     var(--text-xs);
+  font-weight:   var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color:         white;
+}
+.tier-badge--campus-fellow      { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+.tier-badge--distinguished-mentor { background: linear-gradient(135deg, #008c8c, #00bfff); }
+.tier-badge--rising-tutor       { background: linear-gradient(135deg, #001f3f, #008c8c); }
+
+/* ── Leaderboard Table (CSS Grid) ─────────────────────────────────────────── */
+.lb-table {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-2);
+}
+.lb-table__header,
+.lb-row {
+  display:     grid;
+  /* Rank | Avatar+Name | Branch | Year | Sessions | Hours | Score | Badge */
+  grid-template-columns: 40px 1fr 80px 120px 80px 70px 80px 120px;
+  align-items: center;
+  gap:         var(--space-4);
+  padding:     var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+}
+.lb-table__header {
+  font-size:     var(--text-xs);
+  font-weight:   var(--weight-semibold);
+  color:         var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background:    var(--color-bg-tertiary);
+  border:        1px solid var(--color-border-subtle);
+}
+.lb-row {
+  background:  var(--color-bg-secondary);
+  border:      1px solid var(--color-border-subtle);
+  transition:  border-color var(--transition-fast),
+               background   var(--transition-fast);
+  cursor:      pointer;
+}
+.lb-row:hover {
+  border-color: var(--color-primary-700);
+  background:   var(--color-bg-tertiary);
+}
+/* Highlight current user's row */
+.lb-row--mine {
+  border-color: var(--color-primary-500);
+  background:   rgba(0, 191, 255, 0.08);
+}
+
+.lb-rank {
+  font-family:  var(--font-display);
+  font-size:    var(--text-base);
+  font-weight:  var(--weight-bold);
+  color:        var(--color-text-secondary);
+  text-align:   center;
+}
+.lb-rank--gold   { color: #f59e0b; }
+.lb-rank--silver { color: #9ca3af; }
+.lb-rank--bronze { color: #b45309; }
+
+.lb-user {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-3);
+  min-width:   0;
+}
+.lb-user__avatar {
+  width:         36px;
+  height:        36px;
+  border-radius: var(--radius-full);
+  background:    linear-gradient(135deg, var(--color-primary-700), var(--color-secondary-500));
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  font-weight:   var(--weight-bold);
+  font-size:     var(--text-xs);
+  color:         white;
+  flex-shrink:   0;
+}
+.lb-user__name {
+  font-weight:   var(--weight-semibold);
+  font-size:     var(--text-sm);
+  overflow:      hidden;
+  white-space:   nowrap;
+  text-overflow: ellipsis;
+}
+.lb-user__roll {
+  font-size: var(--text-xs);
+  color:     var(--color-text-tertiary);
+}
+
+.lb-score {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size:   var(--text-base);
+  color:       var(--color-primary-300);
+}
+.lb-score__raw {
+  font-size: var(--text-xs);
+  color:     var(--color-text-tertiary);
+}
+
+/* ── Hall of Fame ─────────────────────────────────────────────────────────── */
+.hof-section {
+  margin-top: var(--space-16);
+}
+.hof-section__header {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--space-3);
+  margin-bottom: var(--space-8);
+}
+.hof-section__title {
+  font-family:  var(--font-display);
+  font-size:    var(--text-2xl);
+  font-weight:  var(--weight-black);
+}
+.hof-year-group {
+  margin-bottom: var(--space-8);
+}
+.hof-year-label {
+  font-size:     var(--text-sm);
+  font-weight:   var(--weight-semibold);
+  color:         var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom:  1px solid var(--color-border);
+}
+.hof-tier-group { margin-bottom: var(--space-6); }
+.hof-tier-label {
+  font-size:     var(--text-xs);
+  font-weight:   var(--weight-bold);
+  color:         var(--color-text-tertiary);
+  margin-bottom: var(--space-3);
+}
+.hof-cards {
+  display:   flex;
+  gap:       var(--space-4);
+  flex-wrap: wrap;
+}
+.hof-card {
+  padding:    var(--space-4) var(--space-5);
+  min-width:  240px;
+  flex:       1;
+}
+.hof-card__name {
+  font-weight:   var(--weight-bold);
+  margin-bottom: var(--space-1);
+}
+.hof-card__citation {
+  font-size:  var(--text-xs);
+  color:      var(--color-text-tertiary);
+  font-style: italic;
+  margin-top: var(--space-2);
+}
+.hof-card__official {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--space-1);
+  font-size:     var(--text-xs);
+  color:         #f59e0b;
+  margin-top:    var(--space-2);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────*/
+@media (max-width: 1024px) {
+  .lb-table__header,
+  .lb-row {
+    grid-template-columns: 40px 1fr 80px 80px 70px 80px;
+  }
+  /* Hide branch and academic year columns */
+  .lb-table__header > :nth-child(3),
+  .lb-row > :nth-child(3),
+  .lb-table__header > :nth-child(4),
+  .lb-row > :nth-child(4) { display: none; }
+}
+@media (max-width: 768px) {
+  .podium { grid-template-columns: 1fr; }
+  .podium-card { order: unset !important; transform: none !important; }
+  .lb-table__header,
+  .lb-row { grid-template-columns: 40px 1fr 70px 80px; }
+}

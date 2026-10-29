@@ -1,0 +1,443 @@
+/*
+ * styles/components/footer.css — Campus Project Footer Styles
+ * ─────────────────────────────────────────────────────────────
+ * Supports:
+ *  - Midnight Glow Dark Theme
+ *  - Liquid Glass Light Theme
+ *  - Responsive 5-card team grid
+ *  - Multi-column directory & honest disclaimer banner
+ */
+
+.footer {
+  position:        relative;
+  background:      var(--color-bg-primary);
+  border-top:      1px solid var(--glass-border);
+  padding:         var(--space-16) var(--content-padding) var(--space-8);
+  overflow:        hidden;
+  transition:      background-color 300ms ease, border-color 300ms ease;
+  margin-top:      auto;
+}
+
+/* Ambient bottom lighting — Disabled to remove glow under the UI */
+.footer__glow {
+  display: none !important;
+}
+
+.footer__container {
+  position:  relative;
+  z-index:   1;
+  max-width: var(--content-max-width, 1200px);
+  margin:    0 auto;
+  width:     100%;
+  display:   flex;
+  flex-direction: column;
+  gap:       var(--space-12);
+}
+
+/* ── 1. Team Credits Section ─────────────────────────────────────────────── */
+.footer__team-section {
+  padding:       var(--space-8);
+  border-radius: var(--radius-2xl);
+  background:    var(--glass-bg);
+  border:        1px solid var(--glass-border);
+  box-shadow:    var(--glass-shadow);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.footer__team-header {
+  text-align:    center;
+  max-width:     680px;
+  margin:        0 auto var(--space-8);
+}
+
+.footer__team-badge {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            var(--space-2);
+  padding:        4px var(--space-4);
+  background:     var(--glass-bg);
+  border:         1px solid var(--glass-border);
+  border-radius:  var(--radius-full);
+  font-size:      var(--text-xs);
+  font-weight:    var(--weight-semibold);
+  color:          var(--color-primary-400);
+  margin-bottom:  var(--space-3);
+  letter-spacing: 0.02em;
+}
+
+[data-theme="light"] .footer__team-badge {
+  color: #7b57f5;
+  background: rgba(123, 87, 245, 0.08);
+  border-color: rgba(123, 87, 245, 0.25);
+}
+
+.footer__team-title {
+  font-family:    var(--font-display);
+  font-size:      clamp(1.25rem, 2.5vw, 1.65rem);
+  font-weight:    800;
+  color:          var(--color-text-primary);
+  margin-bottom:  var(--space-2);
+}
+
+.footer__team-title span {
+  background: linear-gradient(135deg, var(--color-primary-300) 0%, var(--color-primary-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="light"] .footer__team-title span {
+  background: linear-gradient(135deg, #7b57f5 0%, #0d9488 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer__team-desc {
+  font-size:   var(--text-sm);
+  color:       var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* 5-Member Team Cards Grid */
+.footer__team-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap:                   var(--space-4);
+}
+
+.footer__member-card {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--space-3);
+  padding:         var(--space-3) var(--space-4);
+  background:      rgba(255, 255, 255, 0.03);
+  border:          1px solid rgba(255, 255, 255, 0.06);
+  border-radius:   var(--radius-xl);
+  transition:      transform var(--transition-normal), border-color var(--transition-normal), background var(--transition-normal);
+}
+
+[data-theme="light"] .footer__member-card {
+  background:      rgba(255, 255, 255, 0.6);
+  border-color:    rgba(0, 0, 0, 0.06);
+}
+
+.footer__member-card:hover {
+  transform:    translateY(-3px);
+  background:   rgba(255, 255, 255, 0.06);
+  border-color: var(--color-primary-400);
+}
+
+[data-theme="light"] .footer__member-card:hover {
+  background:   rgba(255, 255, 255, 0.85);
+  border-color: rgba(123, 87, 245, 0.35);
+}
+
+/* Highlight for Team Lead */
+.footer__member-card--lead {
+  border-color: rgba(0, 191, 255, 0.3);
+  background:   rgba(0, 191, 255, 0.05);
+}
+
+[data-theme="light"] .footer__member-card--lead {
+  border-color: rgba(123, 87, 245, 0.3);
+  background:   rgba(123, 87, 245, 0.06);
+}
+
+.footer__member-avatar {
+  width:           42px;
+  height:          42px;
+  border-radius:   50%;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-family:     var(--font-display);
+  font-weight:     800;
+  font-size:       var(--text-sm);
+  color:           #ffffff;
+  background:      linear-gradient(135deg, #008C8C 0%, #00BFFF 100%);
+  flex-shrink:     0;
+  box-shadow:      0 2px 8px rgba(0, 191, 255, 0.25);
+}
+
+[data-theme="light"] .footer__member-avatar {
+  background: linear-gradient(135deg, #7b57f5 0%, #0d9488 100%);
+  box-shadow: 0 2px 8px rgba(123, 87, 245, 0.25);
+}
+
+.footer__member-card--lead .footer__member-avatar {
+  background: linear-gradient(135deg, #38cfff 0%, #008C8C 100%);
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.4);
+}
+
+[data-theme="light"] .footer__member-card--lead .footer__member-avatar {
+  background: linear-gradient(135deg, #7b57f5 0%, #2563eb 100%);
+  box-shadow: 0 0 12px rgba(123, 87, 245, 0.35);
+}
+
+.footer__member-info {
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+  overflow:       hidden;
+}
+
+.footer__member-name {
+  font-family: var(--font-display);
+  font-size:   var(--text-sm);
+  font-weight: 700;
+  color:       var(--color-text-primary);
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+}
+
+.footer__lead-tag {
+  font-size:     0.65rem;
+  font-weight:   700;
+  padding:       1px 6px;
+  border-radius: var(--radius-full);
+  background:    rgba(0, 191, 255, 0.2);
+  color:         var(--color-primary-300);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+[data-theme="light"] .footer__lead-tag {
+  background: rgba(123, 87, 245, 0.15);
+  color:      #7b57f5;
+}
+
+.footer__member-role {
+  font-size:     var(--text-xs);
+  color:         var(--color-text-secondary);
+  line-height:   1.3;
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+.footer__member-email {
+  font-size:       0.72rem;
+  color:           var(--color-primary-400);
+  text-decoration: none;
+  margin-top:      2px;
+  white-space:     nowrap;
+  overflow:        hidden;
+  text-overflow:   ellipsis;
+}
+
+[data-theme="light"] .footer__member-email {
+  color: #2563eb;
+}
+
+.footer__member-email:hover {
+  text-decoration: underline;
+}
+
+/* ── 2. Directory Multi-Column Grid ──────────────────────────────────────── */
+.footer__directory {
+  display:               grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr 1.2fr;
+  gap:                   var(--space-8);
+}
+
+.footer__col {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-4);
+}
+
+.footer__brand-title {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  font-family: var(--font-display);
+  font-size:   var(--text-xl);
+  font-weight: 900;
+  color:       var(--color-text-primary);
+}
+
+.footer__brand-icon {
+  font-size:   1.3rem;
+  color:       var(--color-primary-400);
+}
+
+[data-theme="light"] .footer__brand-icon {
+  color: #7b57f5;
+}
+
+.footer__col-text {
+  font-size:   var(--text-sm);
+  color:       var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.footer__pill-tags {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       var(--space-2);
+}
+
+.footer__pill {
+  font-size:      0.72rem;
+  font-weight:    600;
+  padding:        3px 8px;
+  border-radius:  var(--radius-full);
+  background:     rgba(255, 255, 255, 0.05);
+  border:         1px solid var(--glass-border);
+  color:          var(--color-text-secondary);
+}
+
+[data-theme="light"] .footer__pill {
+  background:   rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.footer__col-heading {
+  font-family:    var(--font-display);
+  font-size:      var(--text-sm);
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color:          var(--color-text-primary);
+  margin-bottom:  var(--space-1);
+}
+
+.footer__links {
+  list-style:     none;
+  padding:        0;
+  margin:         0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-2);
+}
+
+.footer__links a {
+  font-size:       var(--text-sm);
+  color:           var(--color-text-secondary);
+  text-decoration: none;
+  transition:      color var(--transition-fast), transform var(--transition-fast);
+  display:         inline-block;
+}
+
+.footer__links a:hover {
+  color:     var(--color-primary-300);
+  transform: translateX(4px);
+}
+
+[data-theme="light"] .footer__links a:hover {
+  color: #7b57f5;
+}
+
+.footer__links--spots li {
+  font-size:   var(--text-sm);
+  color:       var(--color-text-secondary);
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  line-height: 1.4;
+}
+
+.footer__contact-info {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-3);
+  font-size:      var(--text-sm);
+  color:          var(--color-text-secondary);
+  line-height:    1.5;
+}
+
+.footer__contact-link {
+  color:           var(--color-primary-400);
+  text-decoration: none;
+  font-weight:     var(--weight-semibold);
+  word-break:      break-all;
+}
+
+[data-theme="light"] .footer__contact-link {
+  color: #2563eb;
+}
+
+.footer__contact-link:hover {
+  text-decoration: underline;
+}
+
+.footer__location {
+  font-size:  var(--text-xs);
+  color:      var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ── 3. Bottom Disclaimer & Copyright ─────────────────────────────────────── */
+.footer__bottom {
+  padding-top:    var(--space-8);
+  border-top:     1px solid var(--glass-border);
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-4);
+  align-items:    center;
+  text-align:     center;
+}
+
+.footer__disclaimer {
+  max-width:     860px;
+  display:       flex;
+  align-items:   flex-start;
+  gap:           var(--space-3);
+  font-size:     var(--text-xs);
+  color:         var(--color-text-tertiary);
+  line-height:   1.5;
+  background:    rgba(255, 255, 255, 0.02);
+  border:        1px solid rgba(255, 255, 255, 0.05);
+  padding:       var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  text-align:    left;
+}
+
+[data-theme="light"] .footer__disclaimer {
+  background:   rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.footer__disclaimer-icon {
+  font-size:  1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.footer__copyright {
+  font-size:      var(--text-xs);
+  color:          var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* ── Responsive Adaptations ───────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .footer__directory {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: var(--space-10) var(--content-padding) var(--space-6);
+  }
+  .footer__team-section {
+    padding: var(--space-5) var(--space-4);
+  }
+  .footer__team-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer__directory {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .footer__disclaimer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}

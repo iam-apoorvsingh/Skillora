@@ -1,0 +1,177 @@
+/*
+ * styles/components/rating-modal.css — Rating Modal Component Styles
+ * ───────────────────────────────────────────────────────────────────
+ * TECHNIQUE: Modal Overlay with CSS Grid centering
+ *
+ * The overlay uses position: fixed + inset: 0 to cover the entire viewport.
+ * WHY inset: 0? It's shorthand for top: 0; right: 0; bottom: 0; left: 0.
+ *
+ * Centering the modal: the overlay is a display:grid container.
+ * place-items: center = align-items: center + justify-items: center
+ * This is the simplest way to centre a box of unknown size in the viewport.
+ *
+ * INTERACTIVE STAR RATING (Pure CSS + JS):
+ * Each star is a <button> element. CSS :hover and .selected classes
+ * control the fill color. JavaScript just toggles the .selected class.
+ * WHY not an image spritesheet? CSS stars scale infinitely, theme with color.
+ */
+
+/* ── Overlay ─────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position:   fixed;
+  inset:      0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  z-index:    var(--z-modal);
+  display:    grid;
+  place-items: center;
+  padding:    var(--space-4);
+  /* Fade in animation */
+  animation: fadeIn var(--transition-fast) ease;
+}
+
+/* ── Modal Box ────────────────────────────────────────────────────────────── */
+.modal {
+  background:    var(--color-bg-secondary);
+  border:        1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow:    var(--shadow-lg);
+  width:         100%;
+  max-width:     480px;
+  max-height:    90vh;
+  overflow-y:    auto;
+  /* Slide up animation */
+  animation:     slideUp var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modal__header {
+  display:        flex;
+  align-items:    center;
+  justify-content: space-between;
+  padding:        var(--space-5) var(--space-6);
+  border-bottom:  1px solid var(--color-border-subtle);
+}
+.modal__title {
+  font-family: var(--font-display);
+  font-size:   var(--text-lg);
+  font-weight: var(--weight-bold);
+  color:       var(--color-text-primary);
+}
+.modal__close {
+  width:         32px;
+  height:        32px;
+  border-radius: var(--radius-full);
+  background:    var(--color-bg-tertiary);
+  border:        none;
+  color:         var(--color-text-secondary);
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  cursor:        pointer;
+  font-size:     var(--text-lg);
+  transition:    background var(--transition-fast), color var(--transition-fast);
+}
+.modal__close:hover {
+  background: var(--color-error);
+  color: white;
+}
+
+.modal__body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap:     var(--space-6);
+}
+
+/* ── Star Rating Interaction ──────────────────────────────────────────────── */
+/*
+ * HOW IT WORKS:
+ * 1. Flex row of 5 star buttons
+ * 2. Each star has a default color (empty) and .selected color (filled amber)
+ * 3. On hover, ALL stars up to and including the hovered star turn amber
+ *    This is done via JS (hoveredStar state) rather than pure CSS sibling trick
+ *    WHY JS? The pure CSS sibling approach (~) requires reversed DOM order,
+ *    making the HTML semantically wrong. JS is cleaner here.
+ */
+.star-rating-group {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-2);
+}
+.star-rating-group label {
+  font-size:   var(--text-sm);
+  font-weight: var(--weight-medium);
+  color:       var(--color-text-secondary);
+}
+.star-rating {
+  display:     flex;
+  gap:         var(--space-2);
+  align-items: center;
+}
+.star-btn {
+  font-size:   2rem;
+  background:  none;
+  border:      none;
+  cursor:      pointer;
+  padding:     2px;
+  color:       var(--color-bg-elevated);
+  transition:  color        var(--transition-fast),
+               transform    var(--transition-fast);
+  line-height: 1;
+}
+.star-btn:hover,
+.star-btn.hovered,
+.star-btn.selected {
+  color:     #f59e0b;
+  transform: scale(1.15);
+}
+.star-btn.selected {
+  /* Selected stars get a subtle glow */
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+/* Sub-criteria rating row */
+.sub-criteria {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-4);
+}
+.sub-criteria-item {
+  display:   flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:       var(--space-4);
+}
+.sub-criteria-label {
+  font-size:   var(--text-sm);
+  color:       var(--color-text-secondary);
+  min-width:   100px;
+}
+.sub-criteria-stars { display: flex; gap: var(--space-1); }
+.sub-criteria-stars .star-btn { font-size: 1.3rem; }
+
+/* ── Feedback Text ────────────────────────────────────────────────────────── */
+.modal__feedback textarea {
+  resize:     vertical;
+  min-height: 80px;
+}
+
+/* ── Footer Actions ──────────────────────────────────────────────────────── */
+.modal__footer {
+  display:    flex;
+  gap:        var(--space-3);
+  justify-content: flex-end;
+  padding:    var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────*/
+@media (max-width: 480px) {
+  .modal { border-radius: var(--radius-lg); }
+  .modal__body { padding: var(--space-4); }
+  .sub-criteria-item { flex-direction: column; align-items: flex-start; }
+}

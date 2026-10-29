@@ -1,0 +1,260 @@
+/*
+ * styles/pages/auth.css — Login & Register Page Styles
+ * ──────────────────────────────────────────────────────
+ * LAYOUT: CSS Grid — Split Screen
+ *   Left panel: decorative brand/identity (hidden on mobile)
+ *   Right panel: the actual form
+ *
+ * WHY CSS Grid over Flexbox here?
+ *   Grid is better for 2D layouts (rows AND columns).
+ *   Flexbox is better for 1D (either rows OR columns).
+ *   A split screen where BOTH columns have equal height is a Grid use case.
+ */
+
+.auth-page {
+  min-height:  100vh;
+  display:     grid;
+  /* 45% brand panel | 55% form panel */
+  grid-template-columns: 45fr 55fr;
+}
+
+/* ── Left Brand Panel ─────────────────────────────────────────────────────── */
+.auth-brand {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  justify-content: center;
+  align-items:     center;
+  padding:         var(--space-12);
+  overflow:        hidden;
+  transition:      background 300ms ease, border-color 300ms ease;
+}
+
+/* Light Mode: Light, crisp, high-contrast background */
+[data-theme="light"] .auth-brand {
+  background:   linear-gradient(150deg, #ede9fe 0%, #e0f2fe 55%, #f1f5f9 100%);
+  border-right: 1px solid rgba(215, 222, 235, 0.8);
+}
+
+/* Dark Mode: Deep Midnight Navy */
+[data-theme="dark"] .auth-brand,
+:root .auth-brand {
+  background:   linear-gradient(150deg, #051a33 0%, #020b17 100%);
+  border-right: 1px solid #0e3153;
+}
+
+/* No blurry glow under the UI */
+.auth-brand::before {
+  display: none !important;
+}
+
+.auth-brand__logo {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--space-3);
+  margin-bottom: var(--space-12);
+}
+
+.auth-brand__logo-text {
+  font-family:    var(--font-display);
+  font-size:      var(--text-3xl);
+  font-weight:    var(--weight-black);
+  letter-spacing: -0.01em;
+}
+
+[data-theme="light"] .auth-brand__logo-text {
+  background:    linear-gradient(135deg, #6d28d9 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .auth-brand__logo-text,
+:root .auth-brand__logo-text {
+  background:    linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth-brand__tagline {
+  font-family:    var(--font-display);
+  font-size:      var(--text-2xl);
+  font-weight:    800;
+  text-align:     center;
+  margin-bottom:  var(--space-4);
+  line-height:    1.3;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="light"] .auth-brand__tagline {
+  color: #0f172a;
+}
+
+[data-theme="dark"] .auth-brand__tagline,
+:root .auth-brand__tagline {
+  color: #f0f8ff;
+}
+
+.auth-brand__sub {
+  font-size:   var(--text-sm);
+  text-align:  center;
+  max-width:   320px;
+  line-height: 1.6;
+}
+
+[data-theme="light"] .auth-brand__sub {
+  color: #475569;
+}
+
+[data-theme="dark"] .auth-brand__sub,
+:root .auth-brand__sub {
+  color: #8faec9;
+}
+
+/* Floating feature pills */
+.auth-brand__features {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-3);
+  margin-top:     var(--space-10);
+  width:          100%;
+  max-width:      340px;
+}
+
+.auth-brand__feature {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--space-3);
+  padding:         var(--space-3) var(--space-4);
+  border-radius:   var(--radius-xl);
+  font-size:       var(--text-sm);
+  font-weight:     var(--weight-medium);
+  transition:      transform var(--transition-fast), background var(--transition-fast);
+}
+
+[data-theme="light"] .auth-brand__feature {
+  background:      rgba(255, 255, 255, 0.82);
+  border:          1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow:      0 4px 14px rgba(15, 23, 42, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  color:           #1e293b;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme="dark"] .auth-brand__feature,
+:root .auth-brand__feature {
+  background:      rgba(255, 255, 255, 0.05);
+  border:          1px solid rgba(0, 191, 255, 0.16);
+  box-shadow:      0 4px 14px rgba(0, 0, 0, 0.3);
+  color:           #d0e6ff;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.auth-brand__feature-icon {
+  font-size:   1.2rem;
+  flex-shrink: 0;
+}
+
+/* ── Right Form Panel ─────────────────────────────────────────────────────── */
+.auth-form-panel {
+  background:      var(--color-bg-primary);
+  display:         flex;
+  flex-direction:  column;
+  justify-content: center;
+  align-items:     center;
+  padding:         var(--space-12) var(--space-16);
+  overflow-y:      auto;
+}
+
+.auth-form-box {
+  width:     100%;
+  max-width: 420px;
+  animation: fadeInUp var(--transition-slow) ease;
+}
+
+.auth-form-box h1 {
+  font-size:     var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+.auth-form-box p.auth-sub {
+  margin-bottom: var(--space-8);
+  color:         var(--color-text-secondary);
+}
+
+.auth-form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-4);
+}
+
+/* Two-column row for roll number + batch */
+.auth-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:     var(--space-3);
+}
+
+.auth-form__divider {
+  text-align:    center;
+  position:      relative;
+  color:         var(--color-text-tertiary);
+  font-size:     var(--text-xs);
+  margin:        var(--space-2) 0;
+}
+.auth-form__divider::before,
+.auth-form__divider::after {
+  content:    '';
+  position:   absolute;
+  top:        50%;
+  width:      40%;
+  height:     1px;
+  background: var(--color-border);
+}
+.auth-form__divider::before { left: 0; }
+.auth-form__divider::after  { right: 0; }
+
+/* Domain validation warning banner */
+.auth-domain-warning {
+  padding:       var(--space-3) var(--space-4);
+  background:    rgba(239,68,68,0.08);
+  border:        1px solid rgba(239,68,68,0.2);
+  border-radius: var(--radius-md);
+  font-size:     var(--text-xs);
+  color:         var(--color-error);
+  display:       flex;
+  align-items:   flex-start;
+  gap:           var(--space-2);
+}
+.auth-domain-ok {
+  background:    rgba(16,185,129,0.08);
+  border-color:  rgba(16,185,129,0.2);
+  color:         var(--color-success);
+}
+
+.auth-submit {
+  width:      100%;
+  padding:    var(--space-4);
+  font-size:  var(--text-base);
+  margin-top: var(--space-2);
+}
+
+.auth-switch {
+  text-align:  center;
+  margin-top:  var(--space-6);
+  font-size:   var(--text-sm);
+  color:       var(--color-text-secondary);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────*/
+@media (max-width: 768px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+  .auth-brand { display: none; }   /* Hide brand panel on mobile */
+  .auth-form-panel { padding: var(--space-8) var(--space-4); }
+}
+@media (max-width: 480px) {
+  .auth-form__row { grid-template-columns: 1fr; }
+}

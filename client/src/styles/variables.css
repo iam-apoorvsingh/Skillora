@@ -1,0 +1,256 @@
+/*
+ * styles/variables.css — Design Token System & Theming
+ * ─────────────────────────────────────────────────────
+ * THEME SYSTEM:
+ *   - [data-theme="dark"]: Midnight Glow theme (#001F3F, #008C8C, #00BFFF)
+ *   - [data-theme="light"]: Liquid Glass UI Kit theme (translucent glass, glossy violet/teal pills)
+ *
+ * Both themes implement the premium "Liquid Glass" frosted refractive glassmorphism
+ * with realistic edge highlights, backdrop-filter blur, and smooth shadows.
+ */
+
+:root,
+[data-theme="dark"] {
+  --theme-mode: 'dark';
+
+  /* ── Color Palette: Midnight Glow Dark ──────────────────────────────────── */
+
+  /* Background layers — depth hierarchy */
+  --color-bg-primary:    #020813;   /* Deepest midnight space */
+  --color-bg-secondary:  #051527;   /* Cards, modals */
+  --color-bg-tertiary:   #0a2038;   /* Nested elements, inputs */
+  --color-bg-elevated:   #0f2e4e;   /* Hover states */
+  --color-midnight:      #001F3F;   /* Official Midnight Glow Navy */
+
+  /* Liquid Glass Surface Tokens */
+  --glass-bg:               rgba(5, 21, 39, 0.72);
+  --glass-border:           rgba(0, 191, 255, 0.22);
+  --glass-border-highlight: rgba(255, 255, 255, 0.1);
+  --glass-shadow:           0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  --glass-blur:             blur(20px) saturate(180%);
+
+  /* Primary brand — Electric Sky Blue / Midnight Glow Cyan (#00BFFF) */
+  --color-primary-900:   #001f3f;
+  --color-primary-800:   #003354;
+  --color-primary-700:   #005378;
+  --color-primary-600:   #007a9e;
+  --color-primary-500:   #00bfff;   /* Main CTA & Electric Glow */
+  --color-primary-400:   #38cfff;   /* Hover state */
+  --color-primary-300:   #70dcff;   /* Light accents */
+  --color-primary-200:   #a8e9ff;
+  --color-primary-100:   #e0f7ff;   /* Text on dark bg */
+  --color-primary-text:  #020b14;
+
+  /* Button styles */
+  --btn-primary-bg:      linear-gradient(135deg, #008C8C 0%, #00BFFF 100%);
+  --btn-primary-color:   #020b14;
+  --btn-primary-shadow:  0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.6);
+
+  --btn-secondary-bg:    rgba(0, 191, 255, 0.12);
+  --btn-secondary-border:rgba(0, 191, 255, 0.45);
+  --btn-secondary-color: #70dcff;
+  --btn-secondary-shadow:0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 1.5px rgba(255, 255, 255, 0.15);
+
+  /* Secondary brand — Ocean Teal (#008C8C) */
+  --color-secondary-900: #002626;
+  --color-secondary-700: #005959;
+  --color-secondary-500: #008c8c;
+  --color-secondary-400: #00a8a8;
+  --color-secondary-300: #1ad1d1;
+  --color-secondary-100: #ccfbfb;
+
+  /* Semantic colors */
+  --color-success:       #10b981;
+  --color-warning:       #f59e0b;
+  --color-error:         #ef4444;
+  --color-info:          #00bfff;
+
+  /* Text colors */
+  --color-text-primary:  #f0f8ff;
+  --color-text-secondary:#8faec9;
+  --color-text-tertiary: #527597;
+  --color-text-inverse:  #020b14;
+
+  /* Border colors */
+  --color-border:        #0e3153;
+  --color-border-subtle: #08213a;
+  --color-border-active: #00bfff;
+
+  /* Badge tier colors */
+  --badge-campus-fellow:        linear-gradient(135deg, #f59e0b, #ef4444);
+  --badge-distinguished-mentor: linear-gradient(135deg, #008c8c, #00bfff);
+  --badge-rising-tutor:         linear-gradient(135deg, #001f3f, #008c8c);
+
+  /* Shadows — Clean, neutral, zero glow */
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md:    0 4px 8px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-lg:    0 10px 30px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-glow:  none;
+  --shadow-glow-cyan: none;
+  --shadow-glow-teal: none;
+
+  /* Navbar */
+  --navbar-bg:     rgba(2, 8, 19, 0.88);
+  --navbar-border: var(--color-border);
+}
+
+/* ── Light Mode: Liquid Glass UI Kit (Reference Aesthetic) ─────────────────── */
+[data-theme="light"] {
+  --theme-mode: 'light';
+
+  /* Background layers — Pristine soft matte background from reference */
+  --color-bg-primary:    #ebedf3;   /* Soft matte off-white from image */
+  --color-bg-secondary:  rgba(255, 255, 255, 0.65); /* Translucent glass card */
+  --color-bg-tertiary:   rgba(255, 255, 255, 0.88); /* Raised matte pill/inputs */
+  --color-bg-elevated:   #ffffff;
+  --color-midnight:      #4338ca;
+
+  /* Liquid Glass Surface Tokens */
+  --glass-bg:               rgba(255, 255, 255, 0.55);
+  --glass-border:           rgba(255, 255, 255, 0.88);
+  --glass-border-highlight: rgba(255, 255, 255, 0.98);
+  --glass-shadow:           0 16px 36px -8px rgba(25, 35, 65, 0.12), 0 2px 6px rgba(25, 35, 65, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.95), inset 0 -1px 1px rgba(0, 0, 0, 0.03);
+  --glass-blur:             blur(24px) saturate(190%);
+
+  /* Primary brand — Glossy Liquid Violet (from image top-left "Primary Button") */
+  --color-primary-900:   #31106b;
+  --color-primary-800:   #4c1d95;
+  --color-primary-700:   #6d28d9;
+  --color-primary-600:   #7c3aed;
+  --color-primary-500:   #8257e5;
+  --color-primary-400:   #9772f8;
+  --color-primary-300:   #6c3ee8;
+  --color-primary-200:   #c4b5fd;
+  --color-primary-100:   #ede9fe;
+  --color-primary-text:  #ffffff;
+
+  /* Button styles (Exact match to Liquid Glass UI Kit image!) */
+  --btn-primary-bg:      linear-gradient(135deg, rgba(147, 95, 245, 0.92) 0%, rgba(108, 62, 237, 0.95) 100%);
+  --btn-primary-color:   #ffffff;
+  --btn-primary-shadow:  0 4px 14px rgba(15, 23, 42, 0.08), inset 0 1px 1.5px rgba(255, 255, 255, 0.85);
+
+  --btn-secondary-bg:    linear-gradient(135deg, rgba(77, 218, 206, 0.88) 0%, rgba(32, 185, 198, 0.92) 100%);
+  --btn-secondary-border:rgba(255, 255, 255, 0.6);
+  --btn-secondary-color: #ffffff;
+  --btn-secondary-shadow:0 4px 14px rgba(15, 23, 42, 0.06), inset 0 1px 1.5px rgba(255, 255, 255, 0.85);
+
+  /* Secondary brand — Glossy Liquid Aqua / Teal (from image "Secondary Button") */
+  --color-secondary-900: #134e4a;
+  --color-secondary-700: #0f766e;
+  --color-secondary-500: #14b8a6;
+  --color-secondary-400: #2dd4bf;
+  --color-secondary-300: #0d9488;
+  --color-secondary-100: #ccfbf1;
+
+  /* Semantic colors */
+  --color-success:       #059669;
+  --color-warning:       #d97706;
+  --color-error:         #dc2626;
+  --color-info:          #2563eb;
+
+  /* Text colors */
+  --color-text-primary:  #0f172a;   /* Deep crisp dark slate */
+  --color-text-secondary:#475569;   /* Muted text */
+  --color-text-tertiary: #8292a8;   /* Subtle labels / placeholders */
+  --color-text-inverse:  #ffffff;   /* Text on dark buttons */
+
+  /* Border colors */
+  --color-border:        rgba(255, 255, 255, 0.88);
+  --color-border-subtle: rgba(215, 222, 235, 0.8);
+  --color-border-active: #8257e5;
+
+  /* Badge tier colors */
+  --badge-campus-fellow:        linear-gradient(135deg, #f59e0b, #ef4444);
+  --badge-distinguished-mentor: linear-gradient(135deg, #8257e5, #22d3ee);
+  --badge-rising-tutor:         linear-gradient(135deg, #059669, #3b82f6);
+
+  /* Shadows — Clean, neutral, zero glow */
+  --shadow-sm:    0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-md:    0 8px 20px -4px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-lg:    0 20px 40px -8px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-glow:  none;
+  --shadow-glow-cyan: none;
+  --shadow-glow-teal: none;
+
+  /* Navbar */
+  --navbar-bg:     rgba(235, 237, 243, 0.82);
+  --navbar-border: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Common Typography, Spacing, Transitions ──────────────────────────────── */
+:root {
+  /* ── Typography ────────────────────────────────────────────────────────── */
+
+  --font-body:     'Inter', system-ui, -apple-system, sans-serif;
+  --font-display:  'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-mono:     'Courier New', Courier, monospace;
+
+  /* Type scale (major third: 1.25x ratio) */
+  --text-xs:   0.64rem;    /* 10.24px — labels, badges */
+  --text-sm:   0.8rem;     /* 12.8px  — metadata, captions */
+  --text-base: 1rem;       /* 16px    — body text baseline */
+  --text-lg:   1.25rem;    /* 20px    — card titles */
+  --text-xl:   1.5rem;     /* 24px    — section headings */
+  --text-2xl:  1.953rem;   /* 31.25px — page headings */
+  --text-3xl:  2.441rem;   /* 39px    — hero titles */
+  --text-4xl:  3.052rem;   /* 48.8px  — landing hero */
+
+  /* Font weights */
+  --weight-light:    300;
+  --weight-normal:   400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    800;
+
+  /* Line heights */
+  --leading-tight:  1.25;
+  --leading-normal: 1.5;
+  --leading-loose:  1.75;
+
+  /* ── Spacing (8px base grid) ────────────────────────────────────────────── */
+
+  --space-1:  0.25rem;   /* 4px  */
+  --space-2:  0.5rem;    /* 8px  */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* ── Border Radius ──────────────────────────────────────────────────────── */
+
+  --radius-sm:   0.375rem;   /* 6px  */
+  --radius-md:   0.625rem;   /* 10px */
+  --radius-lg:   0.875rem;   /* 14px */
+  --radius-xl:   1.25rem;    /* 20px */
+  --radius-2xl:  1.75rem;    /* 28px */
+  --radius-full: 9999px;     /* Smooth Pills */
+
+  /* ── Transitions ─────────────────────────────────────────────────────────── */
+
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Z-index layers ─────────────────────────────────────────────────────── */
+
+  --z-base:    1;
+  --z-dropdown:10;
+  --z-sticky:  20;
+  --z-modal:   100;
+  --z-toast:   200;
+
+  /* ── Layout ─────────────────────────────────────────────────────────────── */
+
+  --navbar-height:   4rem;        /* 64px - matches fixed header */
+  --sidebar-width:   16rem;       /* 256px */
+  --content-max-w:   1280px;
+  --content-padding: var(--space-6);
+}

@@ -1,0 +1,21 @@
+{
+  "name": "skillora",
+  "version": "1.0.0",
+  "description": "IIIT-NR Skill Sharing Platform — 3-tier full-stack academic project",
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "seed": "cd server && node ../database/seeds/seed.js",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm run dev",
+    "server:start": "cd server && node src/server.js",
+    "start": "node server/src/server.js"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": "20.x",
+    "npm": ">=9.0.0"
+  }
+}
